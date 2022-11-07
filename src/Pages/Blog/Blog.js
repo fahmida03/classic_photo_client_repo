@@ -2,19 +2,19 @@ import React from 'react';
 import sql from '../../Assets/sql.png'
 import js from '../../Assets/js.jpg'
 import jwt from '../../Assets/jwt.png'
-
+import nodejs from '../../Assets/nodejs.png'
 
 const Blog = () => {
     return (
         <div className='mt-24 w-11/12 mx-auto'>
             {/* 1st question */}
 
-            <div className='flex mb-10 shadow-lg rounded-lg'>
-                <div className=''>
+            <div className='mb-10 shadow-lg rounded-lg p-7 w-11/12 mx-auto'>
+                <div className='mx-auto'>
                     <img src={sql} alt="" />
                 </div>
                 <div className='m-2 ml-8'>
-                    <p className='text-2xl text-white'>Difference between SQL and NoSQL</p> <br />
+                    <p className='text-2xl text-white text-center'>Difference between SQL and NoSQL</p> <br />
                     <p className='text-lg'>The five critical differences between SQL vs NoSQL are:</p>
                     <ol className='list-decimal'>
                         <li>SQL databases are relational, NoSQL databases are non-relational.</li>
@@ -70,8 +70,22 @@ const Blog = () => {
 
 
             {/* 4th question */}
-            <div>
-
+            <div className='m-20 p-7 shadow-lg rounded-lg w-11/12 mx-auto'>
+                <div className='w-2/3 mx-auto mb-7'>
+                    <img src={nodejs} alt="" />
+                </div>
+                <div>
+                    <p className='text-2xl text-white mb-4'>How does NodeJS handle multiple requests at the same time?</p>
+                    <p>Given a NodeJS application, since Node is single threaded, say if processing involves a Promise.all that takes 8 seconds, does this mean that the client request that comes after this request would need to wait for eight seconds?
+                        No. NodeJS event loop is single threaded. The entire server architecture for NodeJS is not single threaded.</p>
+                    <p className='mb-3'>Before getting into the Node server architecture, to take a look at typical multithreaded request response model, the web server would have multiple threads and when concurrent requests get to the webserver, the webserver picks threadOne from the threadPool and threadOne processes requestOne and responds to clientOne and when the second request comes in, the web server picks up the second thread from the threadPool and picks up requestTwo and processes it and responds to clientTwo. threadOne is responsible for all kinds of operations that requestOne demanded including doing any blocking IO operations.</p>
+                    <p className='mb-3'>The fact that the thread needs to wait for blocking IO operations is what makes it inefficient. With this kind of a model, the webserver is only able to serve as much requests as there are threads in the thread pool.</p>
+                    <p className='mb-3'>NodeJS Web Server maintains a limited Thread Pool to provide services to client requests. Multiple clients make multiple requests to the NodeJS server. NodeJS receives these requests and places them into the EventQueue .
+                        NodeJS server has an internal component referred to as the EventLoop which is an infinite loop that receives requests and processes them. This EventLoop is single threaded. In other words, EventLoop is the listener for the EventQueue.</p>
+                    <p className='mb-3'>So, we have an event queue where the requests are being placed and we have an event loop listening to these requests in the event queue. What happens next?
+                        The listener(the event loop) processes the request and if it is able to process the request without needing any blocking IO operations, then the event loop would itself process the request and sends the response back to the client by itself.
+                        If the current request uses blocking IO operations, the event loop sees whether there are threads available in the thread pool, picks up one thread from the thread pool and assigns the particular request to the picked thread. That thread does the blocking IO operations and sends the response back to the event loop and once the response gets to the event loop, the event loop sends the response back to the client.</p>
+                </div>
             </div>
         </div>
     );
