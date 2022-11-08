@@ -2,11 +2,11 @@ import React from 'react';
 import six from '../../../Assets/six.jpg'
 const Why = () => {
     return (
-        <div className='flex w-11/12 mx-auto mt-24 mb-24 shadow-xl'>
+        <div className='flex w-11/12 mx-auto mt-24 mb-24 shadow-xl sm:display:inline'>
             <div>
                 <p className='text-2xl text-white'>WHY CHOOSE PIP BROADCAST WEDDING PHOTOGRAPHERS IN Dhaka</p>
                 <br />
-                <ol className='list-disc'>
+                <ol className='list-disc pl-9'>
                     <li>We offer best wedding photography, pre-wedding photography, wedding cinematography and much more.</li>
                     <li>We are specialized in candid wedding photography and videography</li>
                     <li>We have more than 12 years of experience.</li>
