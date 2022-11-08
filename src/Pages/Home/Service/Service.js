@@ -4,7 +4,7 @@ import Services from '../Home/Services/Services';
 const Service = () => {
     const [service, setservice] = useState([])
     useEffect(() => {
-        fetch('https://learn-and-explore-server.vercel.app/all-courses')
+        fetch('https://classic-photo-blush.vercel.app/service')
             .then(res => res.json())
             .then(data => setservice(data))
     }, [])
