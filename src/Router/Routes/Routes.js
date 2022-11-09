@@ -28,6 +28,10 @@ const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`https://classic-photo-blush.vercel.app/service/${params.id}`)
             },
             {
+                path: '/service',
+                element: <Service></Service>
+            },
+            {
                 path: 'login',
                 element: <Login></Login>
             }
