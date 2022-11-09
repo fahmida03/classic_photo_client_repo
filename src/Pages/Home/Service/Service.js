@@ -1,30 +1,27 @@
+import { data } from 'autoprefixer';
 import React, { useEffect, useState } from 'react';
 import Services from '../Home/Services/Services';
 
 const Service = () => {
-    const [service, setservice] = useState([])
+    const [service, setService] = useState([])
     useEffect(() => {
         fetch('https://classic-photo-blush.vercel.app/service')
             .then(res => res.json())
-            .then(data => setservice(data))
+            .then(data => setService(data))
     }, [])
     return (
         <div>
-            <h3 className='bg-black'>Courses</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio autem voluptatem doloremque, sint nemo perspiciatis et mollitia ipsum. Obcaecati optio nobis doloremque asperiores odit dignissimos sunt nemo, dicta ab. Consequuntur.</p>
-            <hr />
-            {
-                service.map(service => <Services
-                    key={service.id}
-                >
+            <h2 className='text-white text-3xl text-center'>Services</h2>
+            <p>length: {service.length}</p>
+            <div className='grid grid-cols-3 w-11/12 mx-auto'>
+                {
+                    service.map(service => <Services
+                        key={service.id}
+                        service={service}
+                    ></Services>)
 
-
-                </Services>)
-                // service.map(course => <p
-                //     key={service.id}>
-                //     <Link to={`/per-courses/${course.id}`}>
-                //         {course.name} </Link></p>)
-            }
+                }
+            </div>
         </div>
     );
 };
