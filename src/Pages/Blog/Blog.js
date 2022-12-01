@@ -1,12 +1,12 @@
 import React from 'react';
-import sql from '../../Assets/sql.png'
-import js from '../../Assets/js.jpg'
-import jwt from '../../Assets/jwt.png'
-import nodejs from '../../Assets/nodejs.png'
+import sql from '../../Assets/image/sql.png'
+import js from '../../Assets/image/js.jpg'
+import jwt from '../../Assets/image/jwt.png'
+import nodejs from '../../Assets/image/nodejs.png'
 
 const Blog = () => {
     return (
-        <div className='mt-24 w-11/12 mx-auto'>
+        <div className='mt-24 w-11/12 mx-auto '>
             {/* 1st question */}
 
             <div className='mb-10 shadow-lg rounded-lg p-7 w-11/12 mx-auto'>

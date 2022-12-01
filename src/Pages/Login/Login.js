@@ -1,86 +1,82 @@
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { FaGoogle } from 'react-icons/fa';
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useState } from 'react';
-import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import useTitle from '../../hook/useTitle';
 
 const Login = () => {
-
-    const [ error, setError] = useState('')
-    const location = useLocation();
-
-    const from = location.state?.from?.pathname || '/';
-
+    useTitle("Login")
+    const { SignIn, googleProviderLogin } = useContext(AuthContext);
     const navigate = useNavigate()
-
-
-    const { providerLogin, signIn } = useContext(AuthContext);
+    const location = useLocation()
+    const from1 = location.state?.from1?.pathname || '/'
     const googleProvider = new GoogleAuthProvider()
-
-    const handleGoogleSignIn = () => {
-        providerLogin(googleProvider)
+    const googleLogin = () => {
+        googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                console.log(user)
+                navigate(from1, { replace: true })
+                // toast.success('Successfully created!');
+                //comment
             })
-            .catch(error => console.log(error))
+            .catch(error => console.error(error))
     }
 
-    const handleSubmit = event => {
-        event.preventDefault();
+    const handleLogin = (event) => {
+        event.preventDefault()
         const form = event.target;
-
         const email = form.email.value;
         const password = form.password.value;
-        signIn(email, password)
+
+        SignIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-
-                form.reset();
-                setError('')
-                navigate(from, { replace: true })
-
+                console.log(user)
+                navigate(from1, { replace: true })
             })
-            .catch(error => {
-                console.error(error);
-                setError(error.message)
-            })
-
+        .catch(err => console.error(err))
     }
-
     return (
-        <div>
-            <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content flex-col lg:flex-row-reverse">
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">Login now!</h1>
+        <div className='container mx-auto my-10'>
+            <form onSubmit={handleLogin}>
+                <div className="hero min-h-screen bg-emerald-50">
+                    <div className="hero-content flex-col ">
+                        <div className="text-center my-5">
+                            <h1 className="text-5xl font-bold">Login now!</h1>
 
-                    </div>
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form onSubmit={handleSubmit} className="card-body">
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input name="email" type="email" placeholder="email" className="input input-bordered" />
+                        </div>
+                        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                            <div className="card-body">
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span  className="label-text">Email</span>
+                                    </label>
+                                    <input name="email" type="text" placeholder="email" className="input input-bordered" />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Password</span>
+                                    </label>
+                                    <input type="text" name="password" placeholder="password" className="input input-bordered" />
+                                    <label className="label">
+                                        <div>Don't have an account ? Please  <Link to={"/signup"} className="label-text-alt link link-hover font-bold"> Sign Up</Link></div>
+
+                                    </label>
+                                </div>
+                                <div className="form-control mt-6">
+                                    <button className="btn btn-primary">Login</button> <br />
+                                    <h2 className='text-xl text-center'> or login with google </h2> <br />
+                                    <button onClick={googleLogin} className="btn btn-outline bg-red-900"><FaGoogle></FaGoogle></button>
+                                </div>
+                                
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input name="password" type="password" placeholder="password" className="input input-bordered" />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
-                            </div>
-                            <div className="form-control mt-6">
-                                <button className="btn btn-outline bg-red-900" onClick={handleGoogleSignIn}>Login</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     );
 };
